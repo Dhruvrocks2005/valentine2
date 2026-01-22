@@ -1,7 +1,11 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   height: 100vh;
-  background: #f9e3e3;
+  background: #ffe6ec;
   font-family: Arial, sans-serif;
   display: flex;
   justify-content: center;
@@ -11,6 +15,7 @@ body {
 
 .container {
   text-align: center;
+  z-index: 2;
 }
 
 .hidden {
@@ -24,67 +29,69 @@ h1 {
 
 .buttons {
   display: flex;
-  flex-direction: column;
-  gap: 18px;
+  gap: 25px;
+  justify-content: center;
   margin-top: 25px;
 }
 
 button {
-  font-size: 1.6em;
-  padding: 14px 28px;
-  border-radius: 10px;
   border: none;
   cursor: pointer;
+  border-radius: 8px;
 }
 
-.yes-button {
+/* ✅ YES BUTTON ONLY animates */
+.yes {
+  font-size: 1.8em;
+  padding: 16px 32px;
   background: #4caf50;
   color: white;
+  transition: font-size 0.15s ease, padding 0.15s ease;
 }
 
-.no-button {
+/* 🚫 NO BUTTON NEVER CHANGES */
+.no {
+  font-size: 1.6em;
+  padding: 14px 28px;
   background: #f44336;
   color: white;
+  flex-shrink: 0;
 }
 
-.gif {
+/* 🎞️ GIF */
+.gif_container img {
   margin-top: 25px;
-  max-width: 280px;
+  max-width: 300px;
   border-radius: 12px;
 }
 
-/* ❤️ Hearts */
-.heart {
+/* 💥 Screen shake */
+.shake {
+  animation: shake 0.25s;
+}
+
+@keyframes shake {
+  0% { transform: translate(0); }
+  25% { transform: translate(6px, -6px); }
+  50% { transform: translate(-6px, 6px); }
+  75% { transform: translate(6px, 6px); }
+  100% { transform: translate(0); }
+}
+
+/* ❤️ Hearts + 🎆 Confetti */
+.heart, .confetti {
   position: fixed;
-  bottom: 0;
-  width: 18px;
-  height: 18px;
-  background: red;
-  transform: rotate(45deg);
-  animation: rise 2s linear forwards;
+  pointer-events: none;
+  animation: floatUp linear forwards;
 }
 
-.heart::before,
-.heart::after {
-  content: "";
-  position: absolute;
-  width: 18px;
-  height: 18px;
-  background: red;
-  border-radius: 50%;
-}
-
-.heart::before {
-  top: -9px;
-}
-
-.heart::after {
-  left: -9px;
-}
-
-@keyframes rise {
+@keyframes floatUp {
+  from {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
   to {
-    transform: translateY(-100vh) rotate(45deg);
+    transform: translateY(-140px) scale(1.5);
     opacity: 0;
   }
 }
