@@ -1,54 +1,80 @@
+let audioUnlocked = false;
+
 const messages = [
   "Are you sure, Swara?",
-  "Really sure?? 🥺",
-  "Think again 💕",
-  "Swaraaaa 😭",
-  "You’re breaking my heart 💔",
-  "I’ll be very sad 😢",
-  "Very very sad 😭",
-  "Okay fine… 😔",
-  "JUST SAY YES 💖"
+  "Really really sure? 🥺",
+  "Think once more 💗",
+  "That hurts 😢",
+  "I'm getting sad 😔",
+  "Very sad 😭",
+  "PLEASE SAY YES 💖"
 ];
 
-let index = 0;
-let yesFontSize = 1.6;
+let msgIndex = 0;
+let yesSize = 1.8;
+let yesPadding = 16;
 
-function handleNoClick() {
-  const noBtn = document.querySelector(".no-button");
-  const yesBtn = document.querySelector(".yes-button");
+function unlockAudio() {
+  if (audioUnlocked) return;
 
-  noBtn.textContent = messages[index];
-  index = (index + 1) % messages.length;
+  const music = document.getElementById("bgMusic");
+  music.muted = true;
 
-  // REAL growth (layout-aware)
-  yesFontSize += 0.35;
-  yesBtn.style.fontSize = yesFontSize + "em";
+  music.play().then(() => {
+    music.pause();
+    music.currentTime = 0;
+    music.muted = false;
+    audioUnlocked = true;
+  }).catch(() => {});
 }
 
-function handleYesClick() {
+function noClick() {
+  unlockAudio(); // 🔑 unlocks audio safely
+
+  const noBtn = document.querySelector(".no");
+  const yesBtn = document.querySelector(".yes");
+
+  noBtn.innerText = messages[msgIndex];
+  msgIndex = (msgIndex + 1) % messages.length;
+
+  yesSize += 1.2;
+  yesPadding += 14;
+
+  yesBtn.style.fontSize = yesSize + "em";
+  yesBtn.style.padding = yesPadding + "px " + (yesPadding * 1.6) + "px";
+
+  document.body.classList.add("shake");
+  setTimeout(() => document.body.classList.remove("shake"), 250);
+}
+
+function yesClick() {
+  unlockAudio();
+
   const music = document.getElementById("bgMusic");
+  music.play().catch(() => {});
 
-  // Browser-approved autoplay
-  music.muted = true;
-  music.play().then(() => {
-    music.muted = false;
-    music.volume = 0.7;
-  });
-
-  heartExplosion();
+  heartAndConfettiExplosion();
 
   setTimeout(() => {
-    document.getElementById("questionScreen").classList.add("hidden");
+    document.getElementById("question").classList.add("hidden");
     document.getElementById("yesScreen").classList.remove("hidden");
   }, 600);
 }
 
-function heartExplosion() {
-  for (let i = 0; i < 30; i++) {
-    const heart = document.createElement("div");
-    heart.className = "heart";
-    heart.style.left = Math.random() * 100 + "vw";
-    document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 2000);
+function heartAndConfettiExplosion() {
+  const emojis = ["💖", "💘", "💝", "🎉", "🎊"];
+
+  for (let i = 0; i < 50; i++) {
+    const el = document.createElement("div");
+    el.className = Math.random() > 0.5 ? "heart" : "confetti";
+    el.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+
+    el.style.left = Math.random() * 100 + "vw";
+    el.style.top = Math.random() * 100 + "vh";
+    el.style.fontSize = 20 + Math.random() * 20 + "px";
+    el.style.animationDuration = 1.5 + Math.random() * 1.5 + "s";
+
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 3000);
   }
 }
