@@ -1,11 +1,7 @@
-* {
-  box-sizing: border-box;
-}
-
 body {
   margin: 0;
   height: 100vh;
-  background: #ffe6ec;
+  background-color: #f9e3e3;
   font-family: Arial, sans-serif;
   display: flex;
   justify-content: center;
@@ -15,7 +11,6 @@ body {
 
 .container {
   text-align: center;
-  z-index: 2;
 }
 
 .hidden {
@@ -23,66 +18,65 @@ body {
 }
 
 h1 {
+  font-size: 2.5em;
   color: #d32f2f;
-  font-size: 2.6em;
 }
 
 .buttons {
   display: flex;
-  gap: 25px;
+  gap: 24px;
   justify-content: center;
-  margin-top: 25px;
+  margin-top: 24px;
+  min-height: 140px; /* 🛡 space for YES growth */
+  align-items: center;
+  flex-wrap: wrap;
 }
 
-button {
-  border: none;
-  cursor: pointer;
-  border-radius: 8px;
-}
 
-/* ✅ YES BUTTON ONLY animates */
-.yes {
-  font-size: 1.8em;
+.buttons button {
+  flex: 0 0 auto;
+  font-size: 1.5em;
   padding: 16px 32px;
-  background: #4caf50;
-  color: white;
-  transition: font-size 0.15s ease, padding 0.15s ease;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.25s ease;
 }
 
-/* 🚫 NO BUTTON NEVER CHANGES */
+.yes {
+  background-color: #4caf50;
+  color: white;
+}
+
 .no {
-  font-size: 1.6em;
-  padding: 14px 28px;
-  background: #f44336;
+  background-color: #f44336;
   color: white;
-  flex-shrink: 0;
 }
 
-/* 🎞️ GIF */
 .gif_container img {
-  margin-top: 25px;
   max-width: 300px;
-  border-radius: 12px;
+  border-radius: 10px;
+  margin-top: 20px;
 }
 
-/* 💥 Screen shake */
+/* Screen shake */
 .shake {
   animation: shake 0.25s;
 }
 
 @keyframes shake {
   0% { transform: translate(0); }
-  25% { transform: translate(6px, -6px); }
-  50% { transform: translate(-6px, 6px); }
-  75% { transform: translate(6px, 6px); }
+  25% { transform: translate(5px); }
+  50% { transform: translate(-5px); }
+  75% { transform: translate(5px); }
   100% { transform: translate(0); }
 }
 
-/* ❤️ Hearts + 🎆 Confetti */
+/* Hearts & confetti */
 .heart, .confetti {
   position: fixed;
   pointer-events: none;
-  animation: floatUp linear forwards;
+  animation: floatUp ease-in forwards;
 }
 
 @keyframes floatUp {
@@ -91,7 +85,16 @@ button {
     opacity: 1;
   }
   to {
-    transform: translateY(-140px) scale(1.5);
+    transform: translateY(-140px) scale(1.4);
     opacity: 0;
   }
+}
+
+.yes {
+  transform-origin: center;
+  z-index: 2; /* stays above safely */
+}
+
+.no {
+  z-index: 1;
 }

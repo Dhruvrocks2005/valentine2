@@ -1,18 +1,15 @@
 let audioUnlocked = false;
+let msgIndex = 0;
 
 const messages = [
   "Are you sure, Swara?",
-  "Really really sure? 🥺",
-  "Think once more 💗",
+  "Really sure?? 🥺",
+  "Think again 💗",
   "That hurts 😢",
   "I'm getting sad 😔",
   "Very sad 😭",
   "PLEASE SAY YES 💖"
 ];
-
-let msgIndex = 0;
-let yesSize = 1.8;
-let yesPadding = 16;
 
 function unlockAudio() {
   if (audioUnlocked) return;
@@ -28,8 +25,15 @@ function unlockAudio() {
   }).catch(() => {});
 }
 
+function vibrate(pattern) {
+  if (navigator.vibrate) {
+    navigator.vibrate(pattern);
+  }
+}
+
 function noClick() {
-  unlockAudio(); // 🔑 unlocks audio safely
+  unlockAudio();
+  vibrate([40, 30, 40]); // 📳 Android vibration
 
   const noBtn = document.querySelector(".no");
   const yesBtn = document.querySelector(".yes");
@@ -37,23 +41,26 @@ function noClick() {
   noBtn.innerText = messages[msgIndex];
   msgIndex = (msgIndex + 1) % messages.length;
 
-  yesSize += 1.2;
-  yesPadding += 14;
+  let scale = yesBtn.dataset.scale
+    ? parseFloat(yesBtn.dataset.scale)
+    : 1;
 
-  yesBtn.style.fontSize = yesSize + "em";
-  yesBtn.style.padding = yesPadding + "px " + (yesPadding * 1.6) + "px";
+  scale += 0.45; // 🔥 FAST growth
+  yesBtn.dataset.scale = scale;
+  yesBtn.style.transform = `scale(${scale})`;
 
   document.body.classList.add("shake");
-  setTimeout(() => document.body.classList.remove("shake"), 250);
+  setTimeout(() => document.body.classList.remove("shake"), 200);
 }
 
 function yesClick() {
   unlockAudio();
+  vibrate([80, 40, 80]); // 💖 longer vibration
 
   const music = document.getElementById("bgMusic");
   music.play().catch(() => {});
 
-  heartAndConfettiExplosion();
+  explode();
 
   setTimeout(() => {
     document.getElementById("question").classList.add("hidden");
@@ -61,7 +68,7 @@ function yesClick() {
   }, 600);
 }
 
-function heartAndConfettiExplosion() {
+function explode() {
   const emojis = ["💖", "💘", "💝", "🎉", "🎊"];
 
   for (let i = 0; i < 50; i++) {
