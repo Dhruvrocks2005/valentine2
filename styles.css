@@ -1,17 +1,16 @@
 body {
+  margin: 0;
+  height: 100vh;
+  background: #f9e3e3;
+  font-family: Arial, sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  margin: 0;
-  background-color: #f9e3e3;
-  font-family: Arial, sans-serif;
   overflow: hidden;
 }
 
 .container {
   text-align: center;
-  z-index: 2;
 }
 
 .hidden {
@@ -19,70 +18,73 @@ body {
 }
 
 h1 {
-  font-size: 2.5em;
   color: #d32f2f;
-}
-
-.header_text {
-  font-size: 3em;
+  font-size: 2.6em;
 }
 
 .buttons {
-  margin-top: 30px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  align-items: center;
-}
-
-.yes-button,
-.no-button {
-  font-size: 1.5em;
-  padding: 12px 30px;
-  border-radius: 10px;
-  border: none;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
-
-.yes-button {
-  background-color: #4caf50;
-  color: white;
-}
-
-.no-button {
-  background-color: #f44336;
-  color: white;
-}
-
-.gif_container img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 12px;
+  gap: 18px;
   margin-top: 25px;
 }
 
-/* ❤️ HEARTS */
-#heart-container {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 1;
+button {
+  font-size: 1.6em;
+  padding: 14px 28px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
 }
 
+.yes-button {
+  background: #4caf50;
+  color: white;
+}
+
+.no-button {
+  background: #f44336;
+  color: white;
+}
+
+.gif {
+  margin-top: 25px;
+  max-width: 280px;
+  border-radius: 12px;
+}
+
+/* ❤️ Hearts */
 .heart {
-  position: absolute;
-  font-size: 20px;
-  animation: floatUp linear forwards;
+  position: fixed;
+  bottom: 0;
+  width: 18px;
+  height: 18px;
+  background: red;
+  transform: rotate(45deg);
+  animation: rise 2s linear forwards;
 }
 
-@keyframes floatUp {
-  from {
-    transform: translateY(0);
-    opacity: 1;
-  }
+.heart::before,
+.heart::after {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  background: red;
+  border-radius: 50%;
+}
+
+.heart::before {
+  top: -9px;
+}
+
+.heart::after {
+  left: -9px;
+}
+
+@keyframes rise {
   to {
-    transform: translateY(-100vh);
+    transform: translateY(-100vh) rotate(45deg);
     opacity: 0;
   }
 }
