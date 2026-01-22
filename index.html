@@ -2,44 +2,32 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Will You Be My Valentine?</title>
+  <title>Valentine 💖</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<!-- 💖 VALENTINE PAGE -->
-<div class="container" id="questionPage">
-  <h1>Swara, will you be my Valentine? 💖</h1>
-
-  <div class="buttons">
-    <button class="yes-button" onclick="handleYesClick()">Yes</button>
-    <button class="no-button" onclick="handleNoClick()">No</button>
-  </div>
-
-  <div class="gif_container">
-    <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExbW5lenZyZHI5OXM2eW95b3pmMG40cWVrMDhtNjVuM3A4dGNxa2g2dSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/VM1fcpu2bKs1e2Kdbj/giphy.gif">
-  </div>
-</div>
-
-<!-- 💞 YES PAGE -->
-<div class="container hidden" id="yesPage">
-  <h1 class="header_text">
-    You just made me the happiest person 💞
-  </h1>
-
-  <div class="gif_container">
-    <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExMmo3c3l5ODh3ZGN6NHhhaDE2Mjg1ZjkwOXczdDFxbWM3dTBtaW9zaiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/9XY4f3FgFTT4QlaYqa/giphy.gif">
-  </div>
-</div>
-
-<!-- 🎵 MUSIC -->
-<audio id="bgMusic" loop>
+<audio id="bgMusic" preload="auto" loop>
   <source src="music/love.mp3" type="audio/mpeg">
 </audio>
 
-<!-- ❤️ HEARTS -->
-<div id="heart-container"></div>
+<!-- QUESTION SCREEN -->
+<div class="container" id="questionScreen">
+  <h1>Swara, will you be my Valentine? 💕</h1>
+
+  <div class="buttons">
+    <button class="yes-button" onclick="handleYesClick()">Yes 💖</button>
+    <button class="no-button" onclick="handleNoClick()">No 🙈</button>
+  </div>
+
+  <img class="gif" src="https://media1.giphy.com/media/VM1fcpu2bKs1e2Kdbj/giphy.gif">
+</div>
+
+<!-- YES SCREEN -->
+<div class="container hidden" id="yesScreen">
+  <h1>You just made me the happiest person 💞</h1>
+  <img class="gif" src="https://media4.giphy.com/media/9XY4f3FgFTT4QlaYqa/giphy.gif">
+</div>
 
 <script src="script.js"></script>
 </body>
